@@ -5,9 +5,9 @@
     compatible = "bcrm,bcm2835";
     fragment@0 {
         target-path = "/";
-        overlay{
+        __overlay__{
             ili9341 {
-                compatible = "ili9341";
+                compatible = "tufan,ili9341";
                 noSignalText = "No Signal";
                 backlight-gpio = <&gpio 22 0>;
                 dc-gpio = <&gpio 27 0>;
