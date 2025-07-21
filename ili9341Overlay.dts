@@ -8,11 +8,11 @@
         overlay{
             ili9341 {
                 compatible = "ili9341";
-                status = "no signal please start a X server...";
                 noSignalText = "No Signal";
-                backlightGPIO = <&gpio 22 0>;
-                dcGPIO = <&gpio 27 0>;
-                resetGPIO = <&gpio 17 0>;
+                backlight-gpio = <&gpio 22 0>;
+                dc-gpio = <&gpio 27 0>;
+                reset-gpio = <&gpio 17 0>;
+                userLed-gpio = <&gpio 23 1>;
             };
         };
     

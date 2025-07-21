@@ -35,10 +35,51 @@ static struct platform_driver ili9341_driver = {
 static struct gpio_desc * backlightPin  = NULL;
 static struct gpio_desc * dcPin         = NULL;
 static struct gpio_desc * resetPin      = NULL;
+static struct gpio_desc * userLed       = NULL;
 
 static int ili9341_probe(struct platform_device *pdev){
     struct device *dev ? &pdev->dev;
-    const char *label;
+    const char *noSignalText;
+
+    printk("[ILI9341] Probing the ili9341 \n");
+
+    if(!device_property_present(dev,"noSignalText")){
+        printk("[ILI9341] noSignalText var is not present in dt\n");
+        return -1;
+    }
+    if(!device_property_present(dev,"backlight-gpio")){
+        printk("[ILI9341] backlight-gpio var is not present in dt\n");
+        return -1;
+    }
+    if(!device_property_present(dev,"dc-gpio")){
+        printk("[ILI9341] dc-gpio var is not present in dt\n");
+        return -1;
+    }
+    if(!device_property_present(dev,"reset-gpio")){
+        printk("[ILI9341] reset-gpio var is not present in dt\n");
+        return -1;
+    }
+    if(!device_property_present(dev,"userLed-gpio")){
+        printk("[ILI9341] userLed-gpio var is not present in dt\n");
+        return -1;
+    }
+
+     if(device_propert_read_string(dev,"noSignalText",&noSignalText)){
+        printk("[ILI9341] Couldn't read noSignalText var\n");
+        return -1;
+     }
+
+     backlightPin = gpiod_get(dev,"backlight",GPIOD_OUT_LOW);
+     dcPin        = gpiod_get(dev,"dc",GPIOD_OUT_LOW);
+     resetPin     = gpiod_get(dev,"reset",GPIOD_OUT_LOW);
+     userLed      = gpiod_get(dev,"userLed",GPIOD_OUT_HIGH);
+
+     if(IS_ERR(backlightPin) || IS_ERR(dcPin) || IS_ERR(resetPin) || IS_ERR(userLed)){
+        printk("[ILI9341] Error occured while interfacing with GPIOs\n");
+        return -1;
+     }
+
+     
 }
 
 /**
