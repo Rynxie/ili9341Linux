@@ -12,7 +12,7 @@ MODULE_DESCRIPTION("General ILI9341 Driver");
 
 
 static int ili9341_probe(struct platform_device *pdev);
-static int ili9341_remove(struct platform_device *pdev);
+static void ili9341_remove(struct platform_device *pdev);
 
 static struct of_device_id ili9341_dt_ids[] = {
     {
@@ -82,8 +82,8 @@ static int ili9341_probe(struct platform_device *pdev){
      
 }
 
-static int ili9341_remove(struct platform_device *pdev){
-
+static void ili9341_remove(struct platform_device *pdev){
+    return;
 }
 
 /**
