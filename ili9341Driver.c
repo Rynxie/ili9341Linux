@@ -38,7 +38,7 @@ static struct gpio_desc * resetPin      = NULL;
 static struct gpio_desc * userLed       = NULL;
 
 static int ili9341_probe(struct platform_device *pdev){
-    struct device *dev ? &pdev->dev;
+    struct device *dev = &pdev->dev;
     const char *noSignalText;
 
     printk("[ILI9341] Probing the ili9341 \n");
@@ -64,7 +64,7 @@ static int ili9341_probe(struct platform_device *pdev){
         return -1;
     }
 
-     if(device_propert_read_string(dev,"noSignalText",&noSignalText)){
+     if(device_property_read_string(dev,"noSignalText",&noSignalText)){
         printk("[ILI9341] Couldn't read noSignalText var\n");
         return -1;
      }
@@ -80,6 +80,10 @@ static int ili9341_probe(struct platform_device *pdev){
      }
 
      
+}
+
+static int ili9341_remove(struct platform_device *pdev){
+
 }
 
 /**
